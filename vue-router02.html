@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态路由配置</title>
+    <script src="js/vue.min.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>
+        <router-link to="/user/evan">/user/foo</router-link>
+        <router-link to="/user/marry">/user/bar</router-link>
+    </p>
+    <p>
+        <router-link to="/user/evan/post/123">/user/123</router-link>
+        <router-link to="/user/marry/post/567">/user/567</router-link>
+    </p>
+    <router-view></router-view>
+</div>
+<script type="text/javascript">
+    const router = new VueRouter({
+        routes: [
+            {
+                path: '/user/:username',
+                component: {
+                    template: `<div>{{$route.params.username}}</div>`
+                }
+            },
+            {
+                path: '/user/:username/post/:post_id',
+                component: {
+                    template:  `<div>{{$route.params.username}} {{$route.params.post_id}}</div>`,
+////                    watch: {
+////                        '$route' (to, from){
+////                        }
+////                    },
+////                    beforeRouteUpdate(to, from, next){
+//
+//                    }
+                }
+            },
+            {
+                path: '/person/:name/get/:userId'
+            }
+        ]
+    })
+
+    const  app = new Vue({
+        router
+    }).$mount('#app');
+
+</script>
+
+</body>
+</html>

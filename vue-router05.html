@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由命名</title>
+    <script src="js/vue.min.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+
+
+<script>
+
+    const Home = {template: '<div>This is Home</div>'};
+    const Foo = {template: '<div>This is Foo</div>'};
+    const Bar = {template: `<div>This is Bar {{$route.query.id}}</div>`};
+
+    const router = new VueRouter({
+        mode: 'history',
+        routes: [
+            {
+                path: '/',
+                name: 'home',
+                component: Home
+            },
+            {
+                path: '/foo',
+                name: 'foo',
+                component: Foo
+            },
+            {
+                path: '/bar/:id',
+                name: 'bar',
+                component: Bar,
+            }
+        ]
+    })
+
+    new Vue({
+        router,
+        template: `<div id="app">
+            <h1>Named Routers</h1>
+            <p>current route: {{$route.name}}</p>
+            <ul>
+                <li><router-link :to="{name: 'home'}">home</router-link></li>
+                <li><router-link :to="{name: 'foo'}">foo</router-link></li>
+                <li><router-link :to="{name: 'bar', query: {id: 123}}">bar</router-link></li>
+            </ul>
+            <router-view></router-view>
+        </div>`
+    }).$mount('#app')
+
+</script>
+</body>
+</html>
